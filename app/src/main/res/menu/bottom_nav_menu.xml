@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/bottom_nav_icon_selector_home"
+        android:title="@string/title_home"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/navigation_liked"
+        android:icon="@drawable/bottom_nav_icon_selector_liked"
+        android:title="@string/title_liked"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/navigation_post"
+        android:icon="@drawable/bottom_nav_icon_selector_post"
+        android:title="@string/title_post"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/navigation_chats"
+        android:icon="@drawable/bottom_nav_icon_selector_chat"
+        android:title="@string/title_chats"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/bottom_nav_icon_selector_profile"
+        android:title="@string/title_profile"
+        app:showAsAction="ifRoom" />
+</menu>

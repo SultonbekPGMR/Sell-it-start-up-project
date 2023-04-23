@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Sell it Start up project</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_home">E\'lonlar</string>
+    <string name="title_liked">Sevimli</string>
+    <string name="title_post">E\'lon berish</string>
+    <string name="title_chats">Suhbatlar</string>
+    <string name="title_profile">Profilim</string>
+</resources>
