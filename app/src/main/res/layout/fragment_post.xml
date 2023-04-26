@@ -1,14 +1,494 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.bottom_nav_fragments.PostFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hello Post fragment" />
+        android:layout_height="wrap_content"
+        android:background="@color/dark_blue"
+        android:elevation="5dp"
+        app:title="E'lon berish"
+        app:titleTextColor="@color/white" />
 
-</FrameLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:scrollIndicators="none"
+        android:scrollbarSize="0dp"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:padding="15dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/only_view_tv_first"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bizga e'loningiz haqida gapirib bering"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@id/only_view_tv_select_image_container"
+                android:textColor="@color/dark_blue"
+                android:paddingBottom="10dp"
+                android:textStyle="bold" />
+
+
+
+
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                app:layout_constraintTop_toBottomOf="@+id/only_view_tv_first"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" >
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/selected_images_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </HorizontalScrollView>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/only_view_tv_select_image_container"
+                android:layout_width="match_parent"
+                android:background="@color/light_gray"
+                android:layout_height="120dp"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                app:layout_constraintTop_toBottomOf="@+id/only_view_tv_first"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" >
+                <ImageView
+                    android:id="@+id/only_view_img_add"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/baseline_add_circle_outline_24"
+                    app:tint="@color/dark_blue" />
+
+                <TextView
+                    android:id="@+id/only_view_tv_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rasmlarni qo'shish"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center"
+                    app:layout_constraintTop_toTopOf="@id/only_view_tv_select_image_container"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:textColor="@color/dark_blue"
+                    android:textStyle="bold" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <TextView
+                android:id="@+id/only_view_tv_second"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sarlavha qo'shish"
+                app:layout_constraintTop_toBottomOf="@id/only_view_tv_select_image_container"
+                android:layout_marginTop="20dp"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:placeholderText="Masalan, Iphone 11 kafolati bilan"
+                android:layout_marginTop="5dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/only_view_tv_second"
+                app:boxStrokeWidth="0dp"
+                app:hintTextColor="@color/dark_blue"
+                style="@style/TextLabel"
+                app:endIconTint="@color/dark_blue"
+                app:boxStrokeColor="@color/dark_blue"
+                app:endIconMode="clear_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_product_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/light_gray"
+                    android:inputType="text"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/only_view_tv_third"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bo'limni tanlash"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutName"
+                android:layout_marginTop="20dp"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                app:endIconTint="@color/dark_blue"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/only_view_tv_third"
+                android:layout_marginTop="5dp"
+                android:id="@+id/text_input_layout_type"
+                android:hint="Tanlang"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:focusable="false"
+                android:layout_marginBottom="10dp"
+                tools:ignore="HardcodedText">
+
+                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                    android:id="@+id/edt_product_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="none"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:textSize="17sp"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="15dp"
+                    tools:ignore="LabelFor" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:id="@+id/only_view_line"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/text_input_layout_type" />
+
+            <TextView
+                android:id="@+id/only_view_tv_fourth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tavsif"
+                app:layout_constraintTop_toBottomOf="@id/only_view_line"
+                android:layout_marginTop="20dp"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:id="@+id/text_input_layout_description"
+                style="@style/TextInputLayoutStyle"
+                app:endIconTint="@color/dark_blue"
+                android:layout_height="150dp"
+                app:layout_constraintTop_toBottomOf="@id/only_view_tv_fourth"
+                app:placeholderText="O'zingizni shu e'lonni ko'rayotgan odam o'rniga qo'ying va tavsif yozing :)"
+                app:endIconMode="clear_text"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:hintTextColor="@color/dark_blue"
+                android:layout_marginBottom="10dp"
+                app:helperTextTextColor="#E53935">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_description"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/dark_blue"
+                    android:gravity="top"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:backgroundTint="@color/light_gray"
+                    android:layout_width="match_parent" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/only_view_tv_fifth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Holati"
+                app:layout_constraintTop_toBottomOf="@id/text_input_layout_description"
+                android:layout_marginTop="20dp"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/only_view_layout_tvs"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/only_view_tv_fifth"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_selectable_product_new"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Yangi"
+                    android:background="@drawable/selectable_text_background"
+                    app:layout_constraintTop_toBottomOf="@id/only_view_line"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textColor="@color/dark_blue"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_selectable_product_used"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Ishlatilgan"
+                    app:layout_constraintTop_toBottomOf="@id/only_view_line"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/selectable_text_background"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textColor="@color/dark_blue"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <Space
+                android:id="@+id/only_view_layout_space"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                app:layout_constraintTop_toBottomOf="@id/only_view_layout_tvs"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:id="@+id/only_view_tv_sixth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kontakt ma'lumotlari"
+                app:layout_constraintTop_toBottomOf="@id/only_view_layout_space"
+                android:textSize="22sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/only_view_tv_seventh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Joylashuv"
+                app:layout_constraintTop_toBottomOf="@id/only_view_tv_sixth"
+                android:layout_marginTop="15dp"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:placeholderText="Masalan, farg'ona"
+                android:layout_marginTop="5dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/only_view_tv_seventh"
+                app:boxStrokeWidth="0dp"
+                app:hintTextColor="@color/dark_blue"
+                style="@style/TextLabel"
+                app:endIconTint="@color/dark_blue"
+                app:boxStrokeColor="@color/dark_blue"
+                app:endIconMode="clear_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_product_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_blue"
+                    android:inputType="text"
+                    android:backgroundTint="@color/light_gray"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/only_view_tv_eights"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aloqa uchun shaxs"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutLocation"
+                android:layout_marginTop="20dp"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutPersonName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:placeholderText="Ismni kiriting"
+                android:layout_marginTop="5dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/only_view_tv_eights"
+                app:boxStrokeWidth="0dp"
+                app:hintTextColor="@color/dark_blue"
+                style="@style/TextLabel"
+                app:endIconTint="@color/dark_blue"
+                app:boxStrokeColor="@color/dark_blue"
+                app:endIconMode="clear_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_product_person_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_blue"
+                    android:backgroundTint="@color/light_gray"
+                    android:inputType="textPersonName"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/only_view_tv_ninth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutPersonName"
+                android:layout_marginTop="15dp"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:placeholderText="Emailni kiriting"
+                android:layout_marginTop="5dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/only_view_tv_ninth"
+                app:boxStrokeWidth="0dp"
+                app:hintTextColor="@color/dark_blue"
+                style="@style/TextLabel"
+                app:endIconTint="@color/dark_blue"
+                app:boxStrokeColor="@color/dark_blue"
+                app:endIconMode="clear_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_product_person_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_blue"
+                    android:backgroundTint="@color/light_gray"
+                    android:inputType="textEmailAddress"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/only_view_tv_tenth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Telefon raqam"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutEmail"
+                android:layout_marginTop="15dp"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:placeholderText="Raqamni kiriting"
+                android:layout_marginTop="5dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/only_view_tv_tenth"
+                app:boxStrokeWidth="0dp"
+                app:hintTextColor="@color/dark_blue"
+                style="@style/TextLabel"
+                app:endIconTint="@color/dark_blue"
+                app:boxStrokeColor="@color/dark_blue"
+                app:endIconMode="clear_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_product_person_phone_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="0123456789+"
+                    android:backgroundTint="@color/light_gray"
+                    android:textColor="@color/dark_blue"
+                    android:inputType="phone"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+
+                <Button
+                    android:id="@+id/btn_post_product"
+                    android:layout_width="match_parent"
+                    android:backgroundTint="@color/dark_blue"
+                    android:layout_height="60dp"
+                    android:textAllCaps="false"
+                    android:layout_margin="5dp"
+                    android:text="E'lonni joylashtirish" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import com.sultonbek1547.sellitstartupproject.databinding.FragmentChatBinding
 
 class ChatFragment : Fragment() {
-
-
     private lateinit var binding: FragmentChatBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Sell it Start up project</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">Sell it</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_home">E\'lonlar</string>
     <string name="title_liked">Sevimli</string>

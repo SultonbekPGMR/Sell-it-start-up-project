@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.sultonbek1547.sellitstartupproject.R
 import com.sultonbek1547.sellitstartupproject.databinding.FragmentMainBinding
 import com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments.*
@@ -31,7 +32,7 @@ class MainFragment : Fragment() {
                     true
                 }
                 R.id.navigation_post -> {
-                    switchFragment(PostFragment())
+                    findNavController().navigate(R.id.postFragment) // post fragment should open in another screen
                     true
                 }
                 R.id.navigation_chats -> {

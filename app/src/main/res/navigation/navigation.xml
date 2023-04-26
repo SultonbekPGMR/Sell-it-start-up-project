@@ -10,5 +10,14 @@
         android:id="@+id/mainFragment"
         android:name="com.sultonbek1547.sellitstartupproject.ui.fragments.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments.PostFragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post" />
 </navigation>

@@ -9,7 +9,6 @@ import com.sultonbek1547.sellitstartupproject.R
 import com.sultonbek1547.sellitstartupproject.databinding.FragmentHomeBinding
 import com.sultonbek1547.sellitstartupproject.databinding.FragmentLikedBinding
 
-
 class LikedFragment : Fragment() {
 
     private lateinit var binding: FragmentLikedBinding
