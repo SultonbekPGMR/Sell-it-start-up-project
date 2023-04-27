@@ -11,13 +11,14 @@
         android:id="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
         android:layout_height="wrap_content"
         android:background="@color/dark_blue"
         android:elevation="5dp"
         app:title="E'lon berish"
         app:titleTextColor="@color/white" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:scrollIndicators="none"
         android:scrollbarSize="0dp"
@@ -155,25 +156,27 @@
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                 android:layout_width="match_parent"
-                app:endIconTint="@color/dark_blue"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/only_view_tv_third"
+                app:endIconCheckable="false"
                 android:layout_marginTop="5dp"
                 android:id="@+id/text_input_layout_type"
-                android:hint="Tanlang"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:endIconTint="@color/dark_blue"
                 android:focusable="false"
+                app:endIconDrawable="@drawable/baseline_arrow_forward_24"
                 android:layout_marginBottom="10dp"
                 tools:ignore="HardcodedText">
 
                 <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-                    android:id="@+id/edt_product_type"
+                    android:id="@+id/edt_product_category"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="none"
+                    android:hint="Tanlang"
+                    android:textColor="@color/dark_blue"
                     android:clickable="false"
-                    android:cursorVisible="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:textSize="17sp"
@@ -182,6 +185,15 @@
                     tools:ignore="LabelFor" />
 
             </com.google.android.material.textfield.TextInputLayout>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/listener_container_of_category"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="@id/text_input_layout_type"
+                android:layout_marginTop="5dp"
+                app:layout_constraintBottom_toBottomOf="@id/text_input_layout_type"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
             <View
                 android:id="@+id/only_view_line"
@@ -227,6 +239,10 @@
                     android:gravity="top"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
+                    android:singleLine="false"
+                    android:overScrollMode="always"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
                     android:backgroundTint="@color/light_gray"
                     android:layout_width="match_parent" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -289,10 +305,124 @@
             </LinearLayout>
 
             <Space
+                android:id="@+id/only_view_layout_space_1"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                app:layout_constraintTop_toBottomOf="@id/only_view_layout_tvs"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+            <TextView
+                android:id="@+id/only_view_tv_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/only_view_layout_space_1"
+                android:text="Narxi"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textSize="16sp"
+                android:textColor="@color/dark_blue"
+                android:textStyle="bold" />
+            <LinearLayout
+                android:id="@+id/only_view_layout_price"
+                android:layout_width="match_parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/only_view_tv_price"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_selectable_product_paid"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Narx"
+                    android:background="@drawable/selectable_text_background_selected"
+                    app:layout_constraintTop_toBottomOf="@id/only_view_line"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_selectable_product_free"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Bepul"
+                    app:layout_constraintTop_toBottomOf="@id/only_view_line"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"
+                    android:layout_marginStart="10dp"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/selectable_text_background"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textColor="@color/dark_blue"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/only_view_container_fee"
+                app:layout_constraintTop_toBottomOf="@id/only_view_layout_price"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        app:boxStrokeWidth="0dp"
+                        app:hintTextColor="@color/dark_blue"
+                        style="@style/TextLabel"
+                        app:endIconTint="@color/dark_blue"
+                        app:boxStrokeColor="@color/dark_blue"
+                        app:endIconMode="clear_text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_product_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="0123456789"
+                            android:maxLength="12"
+                            android:hint="qancha"
+                            android:backgroundTint="@color/light_gray"
+                            android:inputType="number"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="16sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="SO'M"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/selectable_text_background"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:textColor="@color/dark_blue"
+                        android:textStyle="bold" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <Space
                 android:id="@+id/only_view_layout_space"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                app:layout_constraintTop_toBottomOf="@id/only_view_layout_tvs"
+                app:layout_constraintTop_toBottomOf="@id/only_view_container_fee"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
 
@@ -489,6 +619,6 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

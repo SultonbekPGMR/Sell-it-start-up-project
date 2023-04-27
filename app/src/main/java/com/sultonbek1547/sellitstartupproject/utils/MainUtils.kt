@@ -2,6 +2,7 @@ package com.sultonbek1547.sellitstartupproject.utils
 
 import android.app.Activity
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
@@ -27,5 +28,8 @@ fun Activity.checkIsUserSignedIn(): Boolean {
 
 fun Activity.showToast(toastMessage: String) {
     Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
+
+}fun Fragment.showToast(toastMessage: String) {
+    Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT).show()
 
 }

@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import com.sultonbek1547.sellitstartupproject.R
 import com.sultonbek1547.sellitstartupproject.utils.checkIsUserSignedIn
 

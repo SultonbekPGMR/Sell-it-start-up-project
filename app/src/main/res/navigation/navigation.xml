@@ -19,5 +19,14 @@
         android:id="@+id/postFragment"
         android:name="com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments.PostFragment"
         android:label="fragment_post"
-        tools:layout="@layout/fragment_post" />
+        tools:layout="@layout/fragment_post" >
+        <action
+            android:id="@+id/action_postFragment_to_displayCategoriesFragment"
+            app:destination="@id/displayCategoriesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/displayCategoriesFragment"
+        android:name="com.sultonbek1547.sellitstartupproject.ui.fragments.DisplayCategoriesFragment"
+        android:label="fragment_display_categories"
+        tools:layout="@layout/fragment_display_categories" />
 </navigation>

@@ -41,4 +41,8 @@ object MyConstants {
         Pair("Transport", listNamesTransport),
     )
 
+
+    var selectedCategory:String? = null
+    var isPoppingBackFromCategoryFragment = false
+
 }

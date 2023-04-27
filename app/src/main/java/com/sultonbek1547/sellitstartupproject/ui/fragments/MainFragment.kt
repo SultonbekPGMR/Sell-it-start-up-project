@@ -19,6 +19,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentMainBinding.inflate(layoutInflater, container, false)
+        switchFragment(HomeFragment())
 
 
         binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
@@ -58,5 +59,9 @@ class MainFragment : Fragment() {
             .replace(R.id.fragment_container, fragment)
             .commit()
     }
+
+
+
+
 
 }
