@@ -2,6 +2,8 @@ package com.sultonbek1547.sellitstartupproject.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.gson.Gson
+import com.sultonbek1547.sellitstartupproject.models.User
 
 
 object MySharedPreference {
@@ -27,11 +29,32 @@ object MySharedPreference {
                 it.putString("token", value)
             }
         }
+
+
     var isUserAuthenticated: Boolean?
         get() = preferences.getBoolean("userState", false)
         set(value) = preferences.edit {
             if (value != null) {
                 it.putBoolean("userState", value)
+            }
+        }
+
+
+    var user: User?
+        get() {
+            val jsonString = preferences.getString("user", null)
+            return if (jsonString != null) {
+                val gson = Gson()
+                gson.fromJson(jsonString, User::class.java)
+            } else {
+                null
+            }
+        }
+        set(value) {
+            preferences.edit {
+                val gson = Gson()
+                val jsonString = gson.toJson(value)
+                it.putString("user", jsonString)
             }
         }
 }

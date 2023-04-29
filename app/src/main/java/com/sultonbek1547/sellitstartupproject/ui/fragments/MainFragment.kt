@@ -8,60 +8,67 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.sultonbek1547.sellitstartupproject.R
 import com.sultonbek1547.sellitstartupproject.databinding.FragmentMainBinding
-import com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments.*
+import com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments.ChatFragment
+import com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments.HomeFragment
+import com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments.LikedFragment
+import com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments.ProfileFragment
+import com.sultonbek1547.sellitstartupproject.utils.loadLikedProductsList
 
 
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
+    private var isEmpty = true
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentMainBinding.inflate(layoutInflater, container, false)
-        switchFragment(HomeFragment())
-
+        loadLikedProductsList()
+        if (isEmpty) {
+            switchFragment(HomeFragment())
+            isEmpty = false
+        }
 
         binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.navigation_home -> {
-                    switchFragment(HomeFragment())
-                    true
-                }
-                R.id.navigation_liked -> {
-                    switchFragment(LikedFragment())
-                    true
-                }
-                R.id.navigation_post -> {
-                    findNavController().navigate(R.id.postFragment) // post fragment should open in another screen
-                    true
-                }
-                R.id.navigation_chats -> {
-                    switchFragment(ChatFragment())
-                    true
-                }
-                R.id.navigation_profile -> {
-                    switchFragment(ProfileFragment())
-                    true
-                }
-
-                else -> false
+            if (menuItem.itemId == R.id.navigation_post) {
+                findNavController().navigate(R.id.postFragment)
+                return@setOnItemSelectedListener true
             }
-
+            switchFragment(getFragment(menuItem.itemId))
+            true
         }
 
 
         return binding.root
     }
 
-    private fun switchFragment(fragment: Fragment) {
-        childFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .commit()
+
+    private fun getFragment(itemId: Int): Fragment {
+        return when (itemId) {
+            R.id.navigation_home -> {
+                HomeFragment()
+
+            }
+            R.id.navigation_liked -> {
+                LikedFragment()
+
+            }
+            R.id.navigation_chats -> {
+                ChatFragment()
+
+            }
+            R.id.navigation_profile -> {
+                ProfileFragment()
+
+            }
+
+            else -> HomeFragment()
+        }
+
     }
 
-
-
-
-
+    private fun switchFragment(fragment: Fragment) {
+        childFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
+    }
 }

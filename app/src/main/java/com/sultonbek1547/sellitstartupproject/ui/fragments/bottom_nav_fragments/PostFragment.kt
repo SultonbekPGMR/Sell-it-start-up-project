@@ -22,11 +22,13 @@ import com.sultonbek1547.sellitstartupproject.databinding.FragmentPostBinding
 import com.sultonbek1547.sellitstartupproject.db.MyConstants
 import com.sultonbek1547.sellitstartupproject.db.firebase.MyFireBaseService
 import com.sultonbek1547.sellitstartupproject.models.MyProduct
+import com.sultonbek1547.sellitstartupproject.utils.MySharedPreference
 import com.sultonbek1547.sellitstartupproject.utils.showToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
 import java.util.*
 
 private const val TAG = "PostingNewProduct"
@@ -42,28 +44,22 @@ class PostFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentPostBinding.inflate(layoutInflater, container, false)
-
-
-
+        MySharedPreference.init(requireContext())
         init()
-
-
 
 
         return binding.root
     }
 
     private fun init() {
-        requireActivity().onBackPressedDispatcher.addCallback(
-                viewLifecycleOwner,
-                object : OnBackPressedCallback(true) {
-                    override fun handleOnBackPressed() {
-                        // Do custom work here
-                        popBackStack()
-                    }
-                })
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    // Do custom work here
+                    popBackStack()
+                }
+            })
 
         editTextGroup = listOf<TextInputEditText>(
             binding.edtProductName,
@@ -190,7 +186,7 @@ class PostFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            if (edtProductPrice.isEmpty()) edtProductPrice = "0"
+            if (edtProductPrice.isEmpty()) edtProductPrice = "Bepul"
 
             val parentCategory = binding.edtProductCategory.text.toString().substringBefore(" -> ")
             val childCategory = binding.edtProductCategory.text.toString().substringAfter(" -> ")
@@ -213,10 +209,12 @@ class PostFragment : Fragment() {
             progressDialog.setMessage("Yuklanmoqda...")
             progressDialog.setCancelable(false)
             progressDialog.show()
+            val currentDateTime = SimpleDateFormat("d MMMM HH:mm", Locale.ENGLISH).format(Date())
             CoroutineScope(Dispatchers.IO).launch {
                 val listOfImageLinks = saveImagesToFirebase()
                 val product = MyProduct(
                     "id",
+                    MySharedPreference.user?.uid!!,
                     listOfImageLinks, //  here list is coming empty
                     edtProductName,
                     parentCategory,
@@ -227,7 +225,7 @@ class PostFragment : Fragment() {
                     edtOwnerName,
                     edtOwnerPhoneNumber,
                     edtOwnerEmail,
-                    "27 april 16:52",
+                    currentDateTime,
                     edtProductPrice
                 )
 
@@ -249,13 +247,14 @@ class PostFragment : Fragment() {
     private suspend fun saveImagesToFirebase(): List<String> {
         val listOfImageLinks = mutableListOf<String>()
         listOfSelectedImages.forEach {
+
             val imageLink = MyFireBaseService().postImageToStorage(UUID.randomUUID().toString(), it)
             listOfImageLinks.add(imageLink)
         }
 
         Log.e("FirebaseException", "getProductsAsync: $listOfImageLinks")
 
-        return listOfImageLinks //  here list could be empty right
+        return listOfImageLinks
     }
 
     private fun handleCategorySelection() {
@@ -379,10 +378,9 @@ class PostFragment : Fragment() {
     }
 
 
-    private suspend fun postProductToFireStore(product: MyProduct) =
+    private fun postProductToFireStore(product: MyProduct) =
         CoroutineScope(Dispatchers.IO).launch {
             MyFireBaseService().postProduct(product)
-
         }
 
 

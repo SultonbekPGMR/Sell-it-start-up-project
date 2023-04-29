@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragments.profilefragments.AboutAppFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="5dp"
+        app:title="Dastur haqida"
+        app:titleTextColor="@color/dark_blue" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_margin="25dp"
+        android:src="@drawable/info_image"
+        app:tint="@color/dark_blue" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:scrollIndicators="none"
+        android:scrollbarSize="0dp"
+        android:padding="15dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:lineSpacingExtra="5dp"
+            android:textSize="22sp"
+            android:textColor="@color/dark_blue"
+            android:text="@string/about_app" />
+    </ScrollView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

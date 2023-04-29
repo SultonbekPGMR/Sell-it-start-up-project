@@ -11,9 +11,8 @@ class User: Serializable {
     var statusTime:String?=null
     var isOnline:String?=null
     var token:String?=null
+    var likedProductIds:String?=null
 
-
-    constructor()
     constructor(
         uid: String?,
         name: String?,
@@ -23,6 +22,7 @@ class User: Serializable {
         statusTime: String?,
         isOnline: String?,
         token: String?,
+        likedProductIds: String?,
     ) {
         this.uid = uid
         this.name = name
@@ -32,5 +32,10 @@ class User: Serializable {
         this.statusTime = statusTime
         this.isOnline = isOnline
         this.token = token
+        this.likedProductIds = likedProductIds
     }
+
+    constructor()
+
+
 }

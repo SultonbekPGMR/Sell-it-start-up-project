@@ -2,6 +2,7 @@ package com.sultonbek1547.sellitstartupproject.models
 
 data class MyProduct(
     val productId:String = "",
+    val userId:String = "",
     val listOfProductImageLinks:List<String> = emptyList(),
     val productName:String = "",
     val productParentCategory:String = "",
@@ -15,5 +16,4 @@ data class MyProduct(
     val productPostedDataAndTime:String = "",
     var productPrice:String = ""
 ) {
-    constructor() : this("", emptyList(), "", "", "", "", "", "", "", "", "", "", "")
 }

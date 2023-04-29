@@ -1,14 +1,322 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.bottom_nav_fragments.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hello profile fragment" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:scrollIndicators="none"
+        android:scrollbarSize="0dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/user_image"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tv_user_name"
+                android:src="@drawable/user_image"/>
+
+
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Salom, Sultonbek!"
+                android:textSize="25sp"
+                android:textColor="@color/dark_blue"
+                android:layout_marginStart="15dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/tv_user_id"
+                android:layout_marginTop="15dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_image" />
+
+            <TextView
+                android:id="@+id/tv_user_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="user id"
+                android:textSize="12sp"
+                android:textColor="@color/gray"
+                android:textStyle="normal"
+                app:layout_constraintLeft_toLeftOf="@id/tv_user_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_user_name" />
+
+            <ImageView
+                android:id="@+id/btn_copy_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_content_copy_24"
+                app:layout_constraintTop_toTopOf="@id/tv_user_id"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                android:padding="2dp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_user_id"
+                app:layout_constraintLeft_toRightOf="@id/tv_user_id"/>
+
+
+            <TextView
+                android:id="@+id/btn_edit_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tahrirlash"
+                android:textSize="14sp"
+                android:padding="5dp"
+                android:clickable="true"
+                android:foreground="?selectableItemBackground"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textColor="@color/dark_blue"
+                android:layout_marginTop="5dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/user_image" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_post"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btn_post_background"
+                android:text="E'lon joylashtirish"
+                android:layout_marginStart="15dp"
+                android:foreground="?selectableItemBackground"
+                android:layout_marginEnd="15dp"
+                android:textColor="@color/dark_blue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_user_id" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/container_chats"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_post"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Subatlar"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="25dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/dark_blue"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:clickable="true"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:foreground="?selectableItemBackground"
+                    android:id="@+id/btn_active_chats"
+                    android:layout_height="wrap_content"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Aktiv suhbatlar"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:textSize="18sp"
+                        app:layout_constraintTop_toBottomOf="@id/btn_post"
+                        android:textColor="@color/dark_blue" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:src="@drawable/baseline_arrow_forward_ios_24" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/light_gray" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/container_settings"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/container_chats"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/only_view_tv_suhbatlar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sozlamalar va boshqalar"
+                    android:layout_marginTop="25dp"
+                    android:textSize="20sp"
+                    android:layout_marginStart="15dp"
+                    android:textColor="@color/dark_blue"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:clickable="true"
+                    android:foreground="?selectableItemBackground"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:id="@+id/btn_settings"
+                    android:layout_height="wrap_content"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Sozlamalar"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:textSize="18sp"
+                        app:layout_constraintTop_toBottomOf="@id/btn_post"
+                        android:textColor="@color/dark_blue" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:src="@drawable/baseline_arrow_forward_ios_24" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/light_gray" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:clickable="true"
+                    android:foreground="?selectableItemBackground"
+                    android:id="@+id/btn_help"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Yordam"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:textSize="18sp"
+                        app:layout_constraintTop_toBottomOf="@id/btn_post"
+                        android:textColor="@color/dark_blue" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:src="@drawable/baseline_arrow_forward_ios_24" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/light_gray" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:clickable="true"
+                    android:foreground="?selectableItemBackground"
+                    android:id="@+id/btn_about_app"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:layout_height="wrap_content"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Ilova haqida"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
+                        android:textSize="18sp"
+                        android:textColor="@color/dark_blue" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:src="@drawable/baseline_arrow_forward_ios_24" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/light_gray" />
+
+                <TextView
+                    android:id="@+id/btn_exit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_exit"
+                    android:layout_margin="25dp"
+                    android:padding="7dp"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?selectableItemBackground"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textColor="@color/dark_blue" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,11 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sell it"
-        android:textColor="@color/black"
-        android:textAllCaps="true"
+        android:textColor="@color/dark_blue"
+        android:textStyle="bold"
         android:textSize="35sp"
         android:gravity="center"
-        android:layout_marginBottom="15dp"/>
+        android:layout_margin="20dp"/>
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -24,19 +24,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Email address"
+        android:hint="Email"
         app:boxStrokeWidth="0dp"
-        app:hintTextColor="#3F51B5"
+        app:hintTextColor="@color/dark_blue"
         style="@style/TextLabel"
-        app:endIconTint="#3F51B5"
-        app:boxStrokeColor="#3F51B5"
+        app:endIconTint="@color/dark_blue"
+        app:boxStrokeColor="@color/dark_blue"
         app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#3F51B5"
+            android:textColor="@color/dark_blue"
             android:inputType="textEmailAddress"
             android:textSize="16sp" />
 
@@ -47,20 +47,20 @@
         android:layout_width="match_parent"
         android:layout_margin="10dp"
         android:layout_height="wrap_content"
-        android:hint="Password"
+        android:hint="parol"
         app:boxStrokeWidth="0dp"
         style="@style/TextLabel"
         app:endIconMode="password_toggle"
-        app:endIconTint="#3F51B5"
+        app:endIconTint="@color/dark_blue"
         app:hintTextColor="@color/gray"
-        app:boxStrokeColor="#3F51B5"
+        app:boxStrokeColor="@color/dark_blue"
         >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#3F51B5"
+            android:textColor="@color/dark_blue"
             android:paddingEnd="40dp"
             android:inputType="textPassword"
             android:textSize="16sp" />
@@ -72,13 +72,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Continue with Google"
+        android:text="Google bilan davom etish"
         android:foreground="?selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
         android:layout_margin="10dp"
         android:textSize="16sp"
-        android:textColor="#0027FF"/>
+        android:textColor="@color/dark_blue"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -88,14 +88,14 @@
             android:id="@+id/btn_sign_up"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:text="Sign up"
-            android:backgroundTint="#3F51B5"/>
+            android:text="Ro'yxatdan o'tish"
+            android:backgroundTint="@color/dark_blue"/>
         <Button
             android:id="@+id/btn_log_in"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Log in"
-            android:backgroundTint="#3F51B5"/>
+            android:text="Kirish"
+            android:backgroundTint="@color/dark_blue"/>
 
     </FrameLayout>
 

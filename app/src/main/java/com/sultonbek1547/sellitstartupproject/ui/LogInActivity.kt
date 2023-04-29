@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
+import com.google.gson.Gson
 import com.sultonbek1547.sellitstartupproject.R
 import com.sultonbek1547.sellitstartupproject.databinding.ActivityLogInBinding
 import com.sultonbek1547.sellitstartupproject.models.User
@@ -52,12 +53,13 @@ class LogInActivity : AppCompatActivity() {
                         if (it.email.equals(email) && it.password.equals(password)) {
                             // email and password are correct
                             MySharedPreference.isUserAuthenticated = true
+                            MySharedPreference.user = it
                             startActivity(Intent(this@LogInActivity, MainActivity::class.java))
-                        } else {
-                            showToast("email or password is incorrect")
+                            return@setOnClickListener
                         }
                     }
-                }else{
+                    showToast("email or password is incorrect")
+                } else {
                     if (email.isEmpty()) edtEmail.error = "fill out"
                     if (password.isEmpty()) edtPassword.error = "fill out"
                 }
@@ -151,10 +153,12 @@ class LogInActivity : AppCompatActivity() {
             binding.edtPassword.text.toString(),
             SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date()),
             "true",
-            MySharedPreference.deviceToken!!
+            MySharedPreference.deviceToken!!,
+            Gson().toJson(ArrayList<String>())
         )
         usersReference.child(auth.uid!!).setValue(user).addOnSuccessListener {
             MySharedPreference.isUserAuthenticated = true
+            MySharedPreference.user = user
             startActivity(Intent(this@LogInActivity, MainActivity::class.java))
         }
     }

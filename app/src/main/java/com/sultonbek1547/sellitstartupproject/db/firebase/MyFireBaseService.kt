@@ -2,16 +2,21 @@ package com.sultonbek1547.sellitstartupproject.db.firebase
 
 import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.sultonbek1547.sellitstartupproject.models.MyProduct
+import com.sultonbek1547.sellitstartupproject.models.User
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 
 class MyFireBaseService {
     private val productsReference = Firebase.firestore.collection("products")
     private val imagesReference = FirebaseStorage.getInstance().getReference("productImages")
+    private val usersReference = FirebaseDatabase.getInstance().getReference("users")
 
     fun postProduct(product: MyProduct) = CoroutineScope(Dispatchers.IO).launch {
         try {
@@ -27,10 +32,6 @@ class MyFireBaseService {
 
     }
 
-
-    fun getProductsAsync(): Deferred<ArrayList<MyProduct>> = CoroutineScope(Dispatchers.IO).async {
-        getALLProducts()
-    }
 
     suspend fun postImageToStorage(id: String, uri: Uri): String =
         withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
@@ -51,21 +52,24 @@ class MyFireBaseService {
             imageUrlDeferred.await()
         }
 
-    private suspend fun getALLProducts(): ArrayList<MyProduct> =
+    suspend fun getALLProducts(): LiveData<ArrayList<MyProduct>> =
         withContext(Dispatchers.IO) {
             try {
                 val querySnapshot = productsReference.get().await()
-                val listOfProducts = ArrayList<MyProduct>()
+                val listOfProducts = MutableLiveData<ArrayList<MyProduct>>(ArrayList())
                 for (document in querySnapshot.documents) {
                     document.toObject(MyProduct::class.java)?.let {
-                        listOfProducts.add(it)
+                        listOfProducts.value!!.add(it)
                     }
                 }
                 return@withContext listOfProducts
             } catch (e: Exception) {
                 Log.e("FirebaseException", "getProductsAsync: $e")
-                return@withContext ArrayList<MyProduct>()
+                return@withContext MutableLiveData<ArrayList<MyProduct>>()
             }
         }
 
+    fun updateUser(user: User) = CoroutineScope(Dispatchers.IO).launch {
+        user.uid?.let { usersReference.child(it).setValue(user) }
+    }
 }

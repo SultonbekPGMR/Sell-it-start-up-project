@@ -13,7 +13,7 @@ object MyConstants {
         "Ko'chmas mulk",
     )
 
-   private val listNamesElektronika = arrayListOf<String>(
+    private val listNamesElektronika = arrayListOf<String>(
         "Telefonlar",
         "Kompyuterlar",
         "Aksessuarlar",
@@ -23,26 +23,23 @@ object MyConstants {
         "Elektronika boshqa",
     )
 
-   private val listNamesTransport = arrayListOf(
-       "Yengil avtomashinalar",
-       "Avto ehtiyot qismlari",
-       "Shinalar, diskalar va g'ildiraklar",
-       "Moto",
-       "Moto ehtiyot qismlari",
-       "Avtobuslar",
-       "Yuk mashinalari",
-       "Boshqa transport",
-       "Maxsus texnika",
-   )
-
-
+    private val listNamesTransport = arrayListOf(
+        "Yengil avtomashinalar",
+        "Avto ehtiyot qismlari",
+        "Shinalar, diskalar va g'ildiraklar",
+        "Moto",
+        "Moto ehtiyot qismlari",
+        "Avtobuslar",
+        "Yuk mashinalari",
+        "Boshqa transport",
+        "Maxsus texnika",
+    )
     val subCategories = hashMapOf<String, ArrayList<String>>(
         Pair("Elektronika", listNamesElektronika),
         Pair("Transport", listNamesTransport),
     )
-
-
-    var selectedCategory:String? = null
+    var selectedCategory: String? = null
     var isPoppingBackFromCategoryFragment = false
 
+    var likedProductIdsList: ArrayList<String>? = null
 }
