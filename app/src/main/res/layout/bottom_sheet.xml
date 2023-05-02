@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="15dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:text="Telefon raqami"
+        android:textSize="16sp"
+        android:textColor="@color/gray"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_product_name" />
+
+    <TextView
+        android:id="@+id/tv_user_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:fontFamily="sans-serif-black"
+        android:text="90 780 15 47"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/dark_blue"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_product_name" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingStart="50dp"
+        android:layout_marginBottom="5dp"
+        android:paddingEnd="50dp"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_call"
+            android:layout_width="match_parent"
+            android:background="@drawable/btn_back_dark"
+            android:layout_height="45dp"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:foreground="?selectableItemBackground"
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:text="Qo'ng'iroq qilish" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_sms"
+            android:layout_width="match_parent"
+            android:background="@drawable/btn_back"
+            android:layout_height="45dp"
+            android:textAllCaps="false"
+            android:foreground="?selectableItemBackground"
+            android:textColor="@color/dark_blue"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:layout_margin="5dp"
+            android:text="SMS yuborish" />
+</androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+    <TextView
+        android:id="@+id/btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/str_close"
+        android:layout_margin="15dp"
+        android:padding="7dp"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackground"
+        android:textAlignment=  "center"
+        android:textSize="18sp"
+        android:textColor="@color/dark_blue" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

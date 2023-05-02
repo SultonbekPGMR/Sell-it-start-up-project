@@ -51,4 +51,36 @@
         android:name="com.sultonbek1547.sellitstartupproject.ui.fragments.profilefragments.AboutAppFragment"
         android:label="fragment_about_app"
         tools:layout="@layout/fragment_about_app" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_productInfoFragment"
+            app:destination="@id/productInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productInfoFragment"
+        android:name="com.sultonbek1547.sellitstartupproject.ui.fragments.ProductInfoFragment"
+        android:label="fragment_product_info"
+        tools:layout="@layout/fragment_product_info" >
+        <action
+            android:id="@+id/action_productInfoFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.sultonbek1547.sellitstartupproject.ui.fragments.ChatFragment"
+        android:label="fragment_chat2"
+        tools:layout="@layout/fragment_chat2" />
+    <fragment
+        android:id="@+id/chatFragmentNav"
+        android:name="com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments.ChatFragmentNav"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chatFragmentNav_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
 </navigation>

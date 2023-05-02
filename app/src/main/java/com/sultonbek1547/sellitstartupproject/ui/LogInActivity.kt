@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -15,15 +16,20 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.sultonbek1547.sellitstartupproject.R
 import com.sultonbek1547.sellitstartupproject.databinding.ActivityLogInBinding
+import com.sultonbek1547.sellitstartupproject.db.MyConstants
+import com.sultonbek1547.sellitstartupproject.db.firebase.MyFireBaseService
+import com.sultonbek1547.sellitstartupproject.models.MyProduct
 import com.sultonbek1547.sellitstartupproject.models.User
 import com.sultonbek1547.sellitstartupproject.utils.MySharedPreference
 import com.sultonbek1547.sellitstartupproject.utils.showToast
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,13 +38,12 @@ private const val TAG = "LogInActivity"
 class LogInActivity : AppCompatActivity() {
     private val binding by lazy { ActivityLogInBinding.inflate(layoutInflater) }
     private val auth = FirebaseAuth.getInstance()
-    private val usersReference = FirebaseDatabase.getInstance().getReference("users")
-    private val usersList: ArrayList<User> = ArrayList<User>()
+    private val usersReference = Firebase.firestore.collection("users")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         MySharedPreference.init(this)
-        getUsersFromFirebaseAsList()
+        MyFireBaseService().getUsersFromFirebaseAsList()
 
         binding.apply {
             btnContinueWithGoogle.setOnClickListener {
@@ -49,7 +54,8 @@ class LogInActivity : AppCompatActivity() {
                 val email = edtEmail.text.toString()
                 val password = edtPassword.text.toString()
                 if (email.isNotEmpty() && password.isNotEmpty()) {
-                    usersList.forEach {
+                    MyConstants.userList
+                        .forEach {
                         if (it.email.equals(email) && it.password.equals(password)) {
                             // email and password are correct
                             MySharedPreference.isUserAuthenticated = true
@@ -70,23 +76,6 @@ class LogInActivity : AppCompatActivity() {
 
     }
 
-    private fun getUsersFromFirebaseAsList() {
-        CoroutineScope(IO).launch {
-            usersReference.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    snapshot.children.forEach {
-                        it.getValue<User>()?.let { user ->
-                            usersList.add(user)
-                        }
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-
-                }
-            })
-        }
-    }
 
     private fun continueWithGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -156,7 +145,7 @@ class LogInActivity : AppCompatActivity() {
             MySharedPreference.deviceToken!!,
             Gson().toJson(ArrayList<String>())
         )
-        usersReference.child(auth.uid!!).setValue(user).addOnSuccessListener {
+        usersReference.document(auth.uid!!).set(user).addOnSuccessListener {
             MySharedPreference.isUserAuthenticated = true
             MySharedPreference.user = user
             startActivity(Intent(this@LogInActivity, MainActivity::class.java))

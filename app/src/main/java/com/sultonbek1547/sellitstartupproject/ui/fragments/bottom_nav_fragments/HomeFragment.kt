@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.sultonbek1547.sellitstartupproject.R
 import com.sultonbek1547.sellitstartupproject.databinding.FragmentHomeBinding
 import com.sultonbek1547.sellitstartupproject.db.firebase.MyFireBaseService
 import com.sultonbek1547.sellitstartupproject.db.firebase.MyRemoteRepository
@@ -14,9 +17,9 @@ import com.sultonbek1547.sellitstartupproject.models.MyProduct
 import com.sultonbek1547.sellitstartupproject.ui.viewmodels.MyProductsViewModel
 import com.sultonbek1547.sellitstartupproject.ui.viewmodels.MyViewModelFactory
 import com.sultonbek1547.sellitstartupproject.utils.adapters.ProductsRvAdapter
-import com.sultonbek1547.sellitstartupproject.utils.removeLikedProductIdFromList
-import com.sultonbek1547.sellitstartupproject.utils.showToast
-import com.sultonbek1547.sellitstartupproject.utils.uploadLikedProductIdToList
+import com.sultonbek1547.sellitstartupproject.utils.loadLikedProductsList
+import com.sultonbek1547.sellitstartupproject.utils.removeLikedProductFromList
+import com.sultonbek1547.sellitstartupproject.utils.uploadLikedProductToList
 
 
 class HomeFragment : Fragment() {
@@ -28,12 +31,14 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        loadLikedProductsList()
         val viewModelFactory = MyViewModelFactory(MyRemoteRepository(MyFireBaseService()))
         productsViewModel =
             ViewModelProvider(this, viewModelFactory).get(MyProductsViewModel::class.java)
 
         initRecyclerView()
 
+        MyFireBaseService().getUsersFromFirebaseAsList()
         return binding.root
     }
 
@@ -41,19 +46,24 @@ class HomeFragment : Fragment() {
     private fun initRecyclerView() {
         binding.progressBar.visibility = View.VISIBLE
         recyclerViewAdapter = ProductsRvAdapter(
-            { selectedItem: MyProduct -> listItemClicked(selectedItem) },
-            { state: Boolean, product: MyProduct -> handleBtnLikeClicks(state, product) }
-        )
+            { selectedItem: MyProduct -> listItemClicked(selectedItem) }
+        ) { state: Boolean, product: MyProduct, position: Int ->
+            handleBtnLikeClicks(
+                state,
+                product,
+                position
+            )
+        }
         binding.myRv.adapter = recyclerViewAdapter
         displayProductsList()
     }
 
-    private fun handleBtnLikeClicks(state: Boolean, product: MyProduct) {
+    private fun handleBtnLikeClicks(state: Boolean, product: MyProduct, position: Int) {
         if (state) {
-            uploadLikedProductIdToList(product.productId)
+            uploadLikedProductToList(product)
             return
         }
-        removeLikedProductIdFromList(product.productId)
+        removeLikedProductFromList(product)
     }
 
     private fun displayProductsList() {
@@ -67,6 +77,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun listItemClicked(selectedItem: MyProduct) {
-        showToast("item clicked")
+        findNavController().navigate(R.id.productInfoFragment, bundleOf("product" to selectedItem))
     }
 }

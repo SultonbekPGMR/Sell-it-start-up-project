@@ -1,6 +1,19 @@
 package com.sultonbek1547.sellitstartupproject.db
 
+import android.util.Log
+import com.sultonbek1547.sellitstartupproject.models.MyProduct
+import com.sultonbek1547.sellitstartupproject.models.User
+
+
 object MyConstants {
+    fun getUser(userId: String): User {
+        userList.forEach {
+            if (it.uid == userId) return it
+
+        }
+        return userList[0]
+    }
+
     val mainCategories = arrayListOf<String>(
         "Elektronika",
         "Transport",
@@ -41,5 +54,7 @@ object MyConstants {
     var selectedCategory: String? = null
     var isPoppingBackFromCategoryFragment = false
 
-    var likedProductIdsList: ArrayList<String>? = null
+    var likedProductsList: ArrayList<MyProduct>? = ArrayList()
+
+    var userList = ArrayList<User>()
 }

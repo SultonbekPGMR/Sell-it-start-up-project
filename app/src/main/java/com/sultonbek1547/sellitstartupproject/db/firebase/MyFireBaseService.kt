@@ -2,12 +2,13 @@ package com.sultonbek1547.sellitstartupproject.db.firebase
 
 import android.net.Uri
 import android.util.Log
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.sultonbek1547.sellitstartupproject.db.MyConstants
 import com.sultonbek1547.sellitstartupproject.models.MyProduct
 import com.sultonbek1547.sellitstartupproject.models.User
 import kotlinx.coroutines.*
@@ -15,8 +16,8 @@ import kotlinx.coroutines.tasks.await
 
 class MyFireBaseService {
     private val productsReference = Firebase.firestore.collection("products")
+    private val usersReference = Firebase.firestore.collection("users")
     private val imagesReference = FirebaseStorage.getInstance().getReference("productImages")
-    private val usersReference = FirebaseDatabase.getInstance().getReference("users")
 
     fun postProduct(product: MyProduct) = CoroutineScope(Dispatchers.IO).launch {
         try {
@@ -69,7 +70,24 @@ class MyFireBaseService {
             }
         }
 
-    fun updateUser(user: User) = CoroutineScope(Dispatchers.IO).launch {
-        user.uid?.let { usersReference.child(it).setValue(user) }
-    }
+//    fun updateUser(user: User) = CoroutineScope(Dispatchers.IO).launch {
+//        user.uid?.let { usersReference.child(it).setValue(user) }
+//    }
+
+
+    fun getUsersFromFirebaseAsList() =
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val querySnapshot = usersReference.get().await()
+                 MyConstants.userList = ArrayList<User>()
+                for (document in querySnapshot.documents) {
+                    document.toObject(User::class.java)?.let {
+                        MyConstants.userList.add(it)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("FirebaseException", "getProductsAsync: $e")
+            }
+
+        }
 }

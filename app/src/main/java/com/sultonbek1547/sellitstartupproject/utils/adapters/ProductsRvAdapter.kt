@@ -13,11 +13,11 @@ import com.sultonbek1547.sellitstartupproject.models.MyProduct
 
 class ProductsRvAdapter(
     val function: (MyProduct) -> Unit,
-    val btnLikeClicked: (Boolean, MyProduct) -> Unit,
+    val btnLikeClicked: (Boolean, MyProduct, Int) -> Unit,
 ) :
     RecyclerView.Adapter<ProductsRvAdapter.Vh>() {
 
-    var productList: List<MyProduct> = emptyList()
+    var productList: ArrayList<MyProduct> = ArrayList()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -50,16 +50,16 @@ class ProductsRvAdapter(
                     if (btnLike.tag == "red") {
                         btnLike.setImageResource(R.drawable.navigation_heart)
                         btnLike.tag = "white"
-                        btnLikeClicked(false, product)
+                        btnLikeClicked(false, product,position)
                         return@setOnClickListener
                     }
-                    btnLikeClicked(true, product)
+                    btnLikeClicked(true, product,position)
                     btnLike.setImageResource(R.drawable.navigation_heart_selected)
                     btnLike.tag = "red"
                 }
 
-                MyConstants.likedProductIdsList?.let {
-                    if (it.contains(product.productId)) {
+                MyConstants.likedProductsList?.let {
+                    if (it.contains(product)) {
                         btnLike.setImageResource(R.drawable.navigation_heart_selected)
                         btnLike.tag = "red"
                     } else {
@@ -67,6 +67,7 @@ class ProductsRvAdapter(
                         btnLike.tag = "white"
                     }
                 }
+
 
             }
         }

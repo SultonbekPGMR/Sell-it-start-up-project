@@ -7,5 +7,7 @@
     <string name="title_chats">Suhbatlar</string>
     <string name="title_profile">Profilim</string>
     <string name="about_app"><b>Sell it</b> ilovasini dasturlash 2023-yilning 23-aprelida <b>Sultonbek To\'lanov</b> tomonidan boshlangan.\nBu dastur orqali siz <b>sotish</b> to\'g\'risida e\'lon joylashtirishingiz yoki <b>zarur</b> bo\'lgan tovarni topishingiz mumkin. Ilovadan foydalanish mobaynida qandaydir muammoga duch kelsangiz <b>yordam bo\'limi</b> orqali biz bilan bo\'glanishingiz mumkin.\nDastur hozirda <b>test rejimida</b> ishlamoqda.\n <i>29.04.2023 10:13PM</i></string>
+    <string name="liked_products_text">Sizga yoqqan e\'lon ustiga ♡ bosing va ular shu yerda ko\'rinadi</string>
     <string name="str_exit"><u>Chiqish</u></string>
+    <string name="str_close"><u>Yopish</u></string>
 </resources>

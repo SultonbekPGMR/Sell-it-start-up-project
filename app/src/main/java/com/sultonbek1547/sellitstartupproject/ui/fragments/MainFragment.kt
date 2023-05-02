@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.sultonbek1547.sellitstartupproject.R
 import com.sultonbek1547.sellitstartupproject.databinding.FragmentMainBinding
-import com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments.ChatFragment
+import com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments.ChatFragmentNav
 import com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments.HomeFragment
 import com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments.LikedFragment
 import com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments.ProfileFragment
@@ -55,7 +55,7 @@ class MainFragment : Fragment() {
 
             }
             R.id.navigation_chats -> {
-                ChatFragment()
+                ChatFragmentNav()
 
             }
             R.id.navigation_profile -> {

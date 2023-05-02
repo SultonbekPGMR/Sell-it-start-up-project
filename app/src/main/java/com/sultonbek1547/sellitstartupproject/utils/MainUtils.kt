@@ -10,6 +10,10 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sultonbek1547.sellitstartupproject.db.MyConstants
 import com.sultonbek1547.sellitstartupproject.db.firebase.MyFireBaseService
+import com.sultonbek1547.sellitstartupproject.models.MyProduct
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainUtils {
 
@@ -39,32 +43,40 @@ fun Fragment.showToast(toastMessage: String) {
     Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT).show()
 }
 
-fun Fragment.uploadLikedProductIdToList(id: String) {
-    MySharedPreference.user = MySharedPreference.user?.apply {
-        val type = object : TypeToken<ArrayList<String>>() {}.type
-        val list = Gson().fromJson<ArrayList<String>>(likedProductIds, type)
-        list.add(id)
-        likedProductIds = Gson().toJson(list)
+fun Fragment.uploadLikedProductToList(product: MyProduct) =
+    CoroutineScope(Dispatchers.Default).launch {
+        MySharedPreference.user = MySharedPreference.user?.apply {
+            val gson = Gson()
+            val type = object : TypeToken<ArrayList<MyProduct>>() {}.type
+            val list: ArrayList<MyProduct> =
+                gson.fromJson<ArrayList<MyProduct>>(likedProducts, type) ?: ArrayList()
+            list.add(product)
+            likedProducts = Gson().toJson(list)
+        }
+     //   MyFireBaseService().updateUser(MySharedPreference.user!!)
+        loadLikedProductsList()
     }
-    MyFireBaseService().updateUser(MySharedPreference.user!!)
-    loadLikedProductsList()
-}
 
-fun Fragment.removeLikedProductIdFromList(id: String) {
-    MySharedPreference.user = MySharedPreference.user?.apply {
-        val type = object : TypeToken<ArrayList<String>>() {}.type
-        val list = Gson().fromJson<ArrayList<String>>(likedProductIds, type)
-        list.remove(id)
-        likedProductIds = Gson().toJson(list)
+
+fun Fragment.removeLikedProductFromList(product: MyProduct) =
+    CoroutineScope(Dispatchers.Default).launch {
+        MySharedPreference.user = MySharedPreference.user?.apply {
+            val gson = Gson()
+            val type = object : TypeToken<ArrayList<MyProduct>>() {}.type
+            val list: ArrayList<MyProduct> =
+                gson.fromJson<ArrayList<MyProduct>>(likedProducts, type) ?: ArrayList()
+            list.remove(product)
+            likedProducts = Gson().toJson(list)
+        }
+//        MyFireBaseService().updateUser(MySharedPreference.user!!)
+        loadLikedProductsList()
     }
-    MyFireBaseService().updateUser(MySharedPreference.user!!)
-    loadLikedProductsList()
-}
 
 
-fun Fragment.loadLikedProductsList() {
-    MySharedPreference.init(requireContext())
-    val type = object : TypeToken<ArrayList<String>>() {}.type
-    MyConstants.likedProductIdsList =
-        Gson().fromJson<ArrayList<String>>(MySharedPreference.user?.likedProductIds, type)
-}
+fun Fragment.loadLikedProductsList() =
+    CoroutineScope(Dispatchers.IO).launch {
+        MySharedPreference.init(requireContext())
+        val type = object : TypeToken<ArrayList<MyProduct>>() {}.type
+        MyConstants.likedProductsList =
+            Gson().fromJson<ArrayList<MyProduct>>(MySharedPreference.user?.likedProducts, type)
+    }

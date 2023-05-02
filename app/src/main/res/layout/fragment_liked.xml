@@ -1,14 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.bottom_nav_fragments.LikedFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hello liked Fragment" />
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="5dp"
+        app:title="Sevimli"
+        app:titleTextColor="@color/dark_blue" />
 
-</FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/my_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:clickable="true"
+            app:spanCount="2"
+            tools:listitem="@layout/rv_item_product"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            android:focusable="true" />
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/container_no_data"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="100dp"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/navigation_heart"
+                android:layout_gravity="center"
+                android:layout_margin="30dp"
+                app:tint="@color/dark_blue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:lineSpacingExtra="5dp"
+                android:text="Qiziqarli e\'lonlarni shu yerda saqlang"
+                android:paddingStart="50dp"
+                android:paddingEnd="50dp"
+                android:textAlignment="center"
+                android:paddingBottom="15dp"
+                android:textColor="@color/dark_blue"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="5dp"
+                android:paddingStart="50dp"
+                android:paddingEnd="50dp"
+                android:text="@string/liked_products_text"
+                android:textAlignment="center"
+                android:textColor="@color/light_dark_blue"
+                android:textSize="18sp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </FrameLayout>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
