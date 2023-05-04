@@ -42,7 +42,7 @@ class ProductsRvAdapter(
                         }
                     })
 
-                root.setOnClickListener {
+                cardView.setOnClickListener {
                     function(product)
                 }
 

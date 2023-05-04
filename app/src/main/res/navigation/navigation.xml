@@ -22,7 +22,8 @@
         tools:layout="@layout/fragment_post" >
         <action
             android:id="@+id/action_postFragment_to_displayCategoriesFragment"
-            app:destination="@id/displayCategoriesFragment" />
+            app:destination="@id/displayCategoriesFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/displayCategoriesFragment"
@@ -45,6 +46,9 @@
         <action
             android:id="@+id/action_profileFragment_to_aboutAppFragment"
             app:destination="@id/aboutAppFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_activeChatsFragment"
+            app:destination="@id/activeChatsFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutAppFragment"
@@ -58,7 +62,8 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_productInfoFragment"
-            app:destination="@id/productInfoFragment" />
+            app:destination="@id/productInfoFragment"
+       />
     </fragment>
     <fragment
         android:id="@+id/productInfoFragment"
@@ -81,6 +86,24 @@
         tools:layout="@layout/fragment_chat" >
         <action
             android:id="@+id/action_chatFragmentNav_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/likedFragment"
+        android:name="com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments.LikedFragment"
+        android:label="fragment_liked"
+        tools:layout="@layout/fragment_liked" >
+        <action
+            android:id="@+id/action_likedFragment_to_productInfoFragment"
+            app:destination="@id/productInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/activeChatsFragment"
+        android:name="com.sultonbek1547.sellitstartupproject.ui.fragments.profilefragments.ActiveChatsFragment"
+        android:label="fragment_chat_active"
+        tools:layout="@layout/fragment_chat_active" >
+        <action
+            android:id="@+id/action_activeChatsFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
     </fragment>
 </navigation>

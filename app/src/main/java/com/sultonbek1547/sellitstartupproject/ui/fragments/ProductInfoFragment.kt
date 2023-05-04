@@ -1,13 +1,15 @@
 package com.sultonbek1547.sellitstartupproject.ui.fragments
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -16,10 +18,15 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.sultonbek1547.sellitstartupproject.R
 import com.sultonbek1547.sellitstartupproject.databinding.BottomSheetBinding
 import com.sultonbek1547.sellitstartupproject.databinding.FragmentProductInfoBinding
+import com.sultonbek1547.sellitstartupproject.db.MyConstants
+import com.sultonbek1547.sellitstartupproject.db.firebase.MyFireBaseService
+import com.sultonbek1547.sellitstartupproject.db.firebase.MyRemoteRepository
 import com.sultonbek1547.sellitstartupproject.models.MyProduct
+import com.sultonbek1547.sellitstartupproject.ui.viewmodels.MyProductsViewModel
 import com.sultonbek1547.sellitstartupproject.utils.MySharedPreference
 import com.sultonbek1547.sellitstartupproject.utils.adapters.ImagePagerAdapter
-import com.sultonbek1547.sellitstartupproject.utils.showToast
+import com.sultonbek1547.sellitstartupproject.utils.removeLikedProductFromList
+import com.sultonbek1547.sellitstartupproject.utils.uploadLikedProductToList
 
 
 class ProductInfoFragment : Fragment() {
@@ -36,10 +43,26 @@ class ProductInfoFragment : Fragment() {
         if (product.userId == MySharedPreference.user?.uid) {
             binding.containerBtnCallAndSms.visibility = View.GONE
             binding.containerBtnDelete.visibility = View.VISIBLE
-
             binding.btnDeleteProduct.setOnClickListener {
-                showToast("delete")
+                val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("Diqqat")
+                builder.setMessage("Bu e'loningizni o'chirmoqchimisiz?")
+                builder.setPositiveButton(
+                    "Xa"
+                ) { _, _ ->
+                    MyFireBaseService().deleteProduct(product = product, MySharedPreference.user!!)
+                    MyProductsViewModel(MyRemoteRepository(MyFireBaseService())).productList.value?.remove(product)
+                    findNavController().popBackStack()
+                }
+                builder.setNegativeButton(
+                    "Yo'q"
+                ) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                val dialog: AlertDialog = builder.create()
+                dialog.show()
             }
+
         }
 
         initViews(product)
@@ -49,36 +72,7 @@ class ProductInfoFragment : Fragment() {
 
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-
         }.attach()
-
-
-        binding.scrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            val drawable = AppCompatResources.getDrawable(
-                requireContext(),
-                R.drawable.baseline_arrow_back_white
-
-            )
-            if (scrollY > oldScrollY) {
-                // when user scrolls down set toolbar elevation to 4dp
-                binding.toolbar.elevation = 4F;
-                binding.toolbar.setBackgroundColor(resources.getColor(R.color.dark_blue));
-            }
-            if (scrollY < oldScrollY) {
-                // when user scrolls up keep binding.toolbar elevation at 4dp
-                binding.toolbar.elevation = 4F;
-                binding.toolbar.setBackgroundColor(resources.getColor(R.color.blue));
-
-            }
-
-            if (scrollY == 0) {
-                // if user is not scrolling it means
-                // that he is at top of page
-                binding.toolbar.elevation = 1F; // required or it will overlap linear layout
-                binding.toolbar.setBackgroundColor(Color.TRANSPARENT); // required to delete elevation shadow
-
-            }
-        }
 
 
 
@@ -86,8 +80,7 @@ class ProductInfoFragment : Fragment() {
     }
 
     private fun initViews(product: MyProduct) {
-
-
+        var isMenuItemClicked = MyConstants.likedProductsList?.contains(product)
         binding.apply {
             tvProductDate.text = product.productPostedDataAndTime
             tvProductName.text = product.productName
@@ -95,8 +88,67 @@ class ProductInfoFragment : Fragment() {
             tvProductLocation.text = product.productOwnerLocation
             tvProductPrice.text = product.productPrice
 //            tvDescription.text = product.productDescription
+
         }
 
+
+        val colorDarkBlue = ContextCompat.getColor(requireContext(), R.color.dark_blue)
+        val colorWhite = ContextCompat.getColor(requireContext(), R.color.white)
+        binding.scrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            val maxScrollY = binding.scrollView.getChildAt(0)?.let {
+                (it.height - binding.scrollView.height.takeIf { height -> height > 0 }!!) ?: 0
+            } ?: 0
+            val scrollPercentage = if (maxScrollY > 0) scrollY * 100 / maxScrollY else 0
+
+            // calculate the alpha value based on the scroll percentage
+            val alpha = when {
+                scrollPercentage <= 0 -> 0
+                scrollPercentage >= 80 -> 255
+                else -> (scrollPercentage / 80.0 * 255).toInt()
+            }
+            if (alpha > 220) {
+                binding.toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
+                binding.toolbar.menu.findItem(R.id.menu_liked).iconTintList =
+                    ColorStateList.valueOf(colorDarkBlue)
+            } else {
+                binding.toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_white)
+                binding.toolbar.menu.findItem(R.id.menu_liked).iconTintList =
+                    ColorStateList.valueOf(colorWhite)
+            }
+
+            // set the toolbar background color with the adjusted alpha value
+            binding.toolbar.setBackgroundColor(Color.argb(alpha, 255, 255, 255))
+            binding.toolbar.elevation = if (scrollPercentage > 0) 4F else 1F
+        }
+
+
+        // toolbar menuItem
+        binding.apply {
+            binding.toolbar.menu.findItem(R.id.menu_liked).iconTintList =
+                ColorStateList.valueOf(colorWhite)
+            binding.toolbar.navigationIcon?.setTint(Color.WHITE)
+            if (isMenuItemClicked == true) {
+                toolbar.menu.findItem(R.id.menu_liked).setIcon(R.drawable.navigation_heart_selected)
+            }
+
+            toolbar.setOnMenuItemClickListener { menuItem ->
+                isMenuItemClicked?.let {
+                    if (it) {
+                        isMenuItemClicked = false
+                        menuItem.setIcon(R.drawable.navigation_heart)
+                        removeLikedProductFromList(product)
+                    } else {
+                        isMenuItemClicked = true
+                        menuItem.setIcon(R.drawable.navigation_heart_selected)
+                        uploadLikedProductToList(product)
+                    }
+                }
+
+
+                true
+            }
+
+        }
 
 
         binding.btnCallOrSms.setOnClickListener {

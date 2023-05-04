@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.sultonbek1547.sellitstartupproject.R
 import com.sultonbek1547.sellitstartupproject.databinding.FragmentLikedBinding
 import com.sultonbek1547.sellitstartupproject.db.MyConstants
 import com.sultonbek1547.sellitstartupproject.models.MyProduct
@@ -52,7 +55,7 @@ class LikedFragment : Fragment() {
 
 
     private fun listItemClicked(selectedItem: MyProduct) {
-        showToast("item clicked")
+ findNavController().navigate(R.id.productInfoFragment, bundleOf("product" to selectedItem))
     }
 
     private fun handleBtnLikeClicks(state: Boolean, product: MyProduct, position: Int) {

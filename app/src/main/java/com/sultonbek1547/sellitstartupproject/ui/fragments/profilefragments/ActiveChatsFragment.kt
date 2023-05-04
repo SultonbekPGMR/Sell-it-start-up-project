@@ -1,4 +1,4 @@
-package com.sultonbek1547.sellitstartupproject.ui.fragments.bottom_nav_fragments
+package com.sultonbek1547.sellitstartupproject.ui.fragments.profilefragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,22 +9,23 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.database.*
 import com.sultonbek1547.sellitstartupproject.R
+import com.sultonbek1547.sellitstartupproject.databinding.FragmentChatActiveBinding
 import com.sultonbek1547.sellitstartupproject.databinding.FragmentChatBinding
 import com.sultonbek1547.sellitstartupproject.db.MyConstants
 import com.sultonbek1547.sellitstartupproject.models.User
 import com.sultonbek1547.sellitstartupproject.utils.MySharedPreference
 import com.sultonbek1547.sellitstartupproject.utils.adapters.UsersAdapter
 
-class ChatFragmentNav : Fragment() {
-    private lateinit var binding: FragmentChatBinding
+class ActiveChatsFragment : Fragment() {
+    private lateinit var binding: FragmentChatActiveBinding
     private lateinit var usersAdapter: UsersAdapter
     private lateinit var reference: DatabaseReference
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = FragmentChatBinding.inflate(layoutInflater, container, false)
-        binding.progressBar.visibility =View.VISIBLE
+        binding = FragmentChatActiveBinding.inflate(layoutInflater, container, false)
+        binding.progressBar.visibility = View.VISIBLE
         reference = FirebaseDatabase.getInstance().getReference("chats")
 
         MySharedPreference.init(requireContext())
@@ -58,21 +59,20 @@ class ChatFragmentNav : Fragment() {
                             position
                         )
                     }
-
-                    if (rvList.isEmpty()){
-                        binding.containerEmpty.visibility =View.VISIBLE
-                    }else{
-                        binding.containerEmpty.visibility =View.GONE
+                    if (rvList.isEmpty()) {
+                        binding.containerEmpty.visibility = View.VISIBLE
+                    } else {
+                        binding.containerEmpty.visibility = View.GONE
                     }
 
-                    binding.progressBar.visibility =View.GONE
+                    binding.progressBar.visibility = View.GONE
                     binding.myRv.adapter = usersAdapter
-
 
                 }else{
                     binding.containerEmpty.visibility = View.VISIBLE
                     binding.progressBar.visibility = View.GONE
                 }
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -81,11 +81,14 @@ class ChatFragmentNav : Fragment() {
         })
 
 
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
         return binding.root
     }
 
     private fun listItemClicked(user: User, position: Int) {
-
         findNavController().navigate(R.id.chatFragment, bundleOf("user" to user))
     }
 }

@@ -9,22 +9,10 @@ object MyConstants {
     fun getUser(userId: String): User {
         userList.forEach {
             if (it.uid == userId) return it
-
         }
         return userList[0]
     }
 
-    val mainCategories = arrayListOf<String>(
-        "Elektronika",
-        "Transport",
-        "Bolalar uchun",
-        "Uy va bog'",
-        "Fitnes&hobbi",
-        "Servislar",
-        "Hayvonlar",
-        "Mebel",
-        "Ko'chmas mulk",
-    )
 
     private val listNamesElektronika = arrayListOf<String>(
         "Telefonlar",
@@ -47,9 +35,72 @@ object MyConstants {
         "Boshqa transport",
         "Maxsus texnika",
     )
+    private val listNamesBolalarDunyosi = arrayListOf(
+        "Bolalar kiyimi",
+        "Bolalar oyoq kiyimi",
+        "Bolalar kolyaskalari",
+        "Bolalar mebeli",
+        "O'yinchoqlaar",
+        "Oziqlantirish",
+    )
+    private val listNamesMolMulk = arrayListOf(
+        "Sutkalik ijara",
+        "Kvartiralar",
+        "Xususiy uylar",
+        "Yer uchastkasi",
+        "Garajlar",
+        "Tijorat binolari",
+    )
+ private val listNamesUyVaBog = arrayListOf(
+        "Mebel",
+        "Bog'-tomorqa",
+        "Interyer jihozlar",
+        "Xona o'simliklari",
+    )
+    private val listNamesHayvonlar = arrayListOf(
+        "Itlar",
+        "Mushuklar",
+        "Akvarium baliqlar",
+        "Qushlar",
+        "Kemiruvchilar",
+    )
+    private val listNamesXizmatlar = arrayListOf(
+        "Qurilish-tamirlash",
+        "Moliya Xizmatlari",
+        "Tashishlar",
+        "Reklama, marketing",
+        "Enagalar",
+        "Avto-xizmat",
+        "Biznesni sotish",
+        "Yuridik xizmatlar",
+    )
+    private val listNamesFitnessHobby = arrayListOf(
+        "Antikvar kolleksiyalar",
+        "Musiqa anjomlari",
+        "Sport dam olish",
+        "Kitoblar-jurnallar",
+        "Chiptalar",
+    )
+    val mainCategories = arrayListOf<String>(
+        "Elektronika",
+        "Transport",
+        "Bolalar uchun",
+        "Uy va bog'",
+        "Fitnes&hobbi",
+        "Xizmatlar",
+        "Hayvonlar",
+        "Ko'chmas mulk",
+    )
+
     val subCategories = hashMapOf<String, ArrayList<String>>(
         Pair("Elektronika", listNamesElektronika),
         Pair("Transport", listNamesTransport),
+        Pair("Bolalar uchun", listNamesBolalarDunyosi),
+        Pair("Fitnes&hobbi", listNamesFitnessHobby),
+        Pair("Xizmatlar", listNamesXizmatlar),
+        Pair("Hayvonlar", listNamesHayvonlar),
+        Pair("Uy va bog'", listNamesUyVaBog),
+        Pair("Ko'chmas mulk", listNamesMolMulk),
     )
     var selectedCategory: String? = null
     var isPoppingBackFromCategoryFragment = false

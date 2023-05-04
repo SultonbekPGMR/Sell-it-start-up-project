@@ -26,7 +26,7 @@ class DisplayCategoriesFragment : Fragment() {
         toolbarTitle = arguments?.getString("toolbarTitle")!!
         categoryStep = arguments?.getInt("categoryStep")!!
 
-
+        binding.toolbar.title = toolbarTitle
         if (toolbarTitle == "Bo'limlar") {
             loadListToRecyclerView(MyConstants.mainCategories)
         } else {

@@ -2,15 +2,16 @@ package com.sultonbek1547.sellitstartupproject.db.firebase
 
 import android.net.Uri
 import android.util.Log
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.gson.Gson
 import com.sultonbek1547.sellitstartupproject.db.MyConstants
 import com.sultonbek1547.sellitstartupproject.models.MyProduct
 import com.sultonbek1547.sellitstartupproject.models.User
+import com.sultonbek1547.sellitstartupproject.utils.MySharedPreference
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 
@@ -70,16 +71,16 @@ class MyFireBaseService {
             }
         }
 
-//    fun updateUser(user: User) = CoroutineScope(Dispatchers.IO).launch {
-//        user.uid?.let { usersReference.child(it).setValue(user) }
-//    }
+    fun updateUser(user: User) = CoroutineScope(Dispatchers.IO).launch {
+        user.uid?.let { usersReference.document(it).set(user) }
+    }
 
 
     fun getUsersFromFirebaseAsList() =
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val querySnapshot = usersReference.get().await()
-                 MyConstants.userList = ArrayList<User>()
+                MyConstants.userList = ArrayList<User>()
                 for (document in querySnapshot.documents) {
                     document.toObject(User::class.java)?.let {
                         MyConstants.userList.add(it)
@@ -90,4 +91,20 @@ class MyFireBaseService {
             }
 
         }
+
+
+    fun deleteProduct(product: MyProduct, user: User) = CoroutineScope(Dispatchers.IO).launch {
+        if (MyConstants.likedProductsList!!.contains(product)) {
+            MyConstants.likedProductsList!!.remove(
+                product
+            )
+        }
+        user.likedProducts = Gson().toJson(MyConstants.likedProductsList)
+        updateUser(user)
+        MySharedPreference.user = user
+        productsReference.document(product.productId).delete().await()
+    }
 }
+
+
+

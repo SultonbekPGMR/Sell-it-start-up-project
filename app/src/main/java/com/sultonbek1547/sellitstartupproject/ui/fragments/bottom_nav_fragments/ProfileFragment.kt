@@ -72,6 +72,10 @@ class ProfileFragment : Fragment() {
                 findNavController().navigate(R.id.aboutAppFragment)
             }
 
+            binding.btnActiveChats.setOnClickListener {
+                findNavController().navigate(R.id.activeChatsFragment)
+            }
+
 
             btnExit.setOnClickListener {
                 val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())

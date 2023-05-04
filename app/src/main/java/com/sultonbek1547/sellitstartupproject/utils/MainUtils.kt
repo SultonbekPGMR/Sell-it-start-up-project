@@ -53,7 +53,7 @@ fun Fragment.uploadLikedProductToList(product: MyProduct) =
             list.add(product)
             likedProducts = Gson().toJson(list)
         }
-     //   MyFireBaseService().updateUser(MySharedPreference.user!!)
+        MyFireBaseService().updateUser(MySharedPreference.user!!)
         loadLikedProductsList()
     }
 
@@ -68,7 +68,7 @@ fun Fragment.removeLikedProductFromList(product: MyProduct) =
             list.remove(product)
             likedProducts = Gson().toJson(list)
         }
-//        MyFireBaseService().updateUser(MySharedPreference.user!!)
+       MyFireBaseService().updateUser(MySharedPreference.user!!)
         loadLikedProductsList()
     }
 
